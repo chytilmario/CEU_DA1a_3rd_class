@@ -59,3 +59,71 @@ hotels[, .N, by = pricecat]
 str(hotels)
 
 hotels[, .N, by = list(pricecat, citytype)]
+
+hotels <- read.csv('http://bit.ly/CEU-R-hotels-2017-v2')
+str(hotels)
+
+install.packages("data.table")
+library("data.table")
+hotels <- data.table(hotels)
+
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(hotels, aes(pricecat)) + geom_bar()
+
+ggplot(hotels, aes(pricecat)) + geom_bar() + theme_bw()
+
+p <- ggplot(hotels, aes(pricecat)) + geom_bar()
+str(p)
+p
+
+ggplot(hotels, aes(pricecat)) + 
+  geom_bar(color = 'orange', fill = 'yellow')
+
+ggplot(hotels, aes(pricecat)) + geom_bar() +
+  coord_flip()
+
+p + xlab('') + ylab('N') + ggtitle("Number of hotels by pricecut")
+
+ggplot(hotels, aes(citytype)) + geom_bar()
+
+ggplot(hotels, aes(rating)) + geom_histogram(binwidth = 0.1)
+
+ggplot(hotels, aes(stars, rating)) + geom_point()
+ggplot(hotels, aes(stars, rating)) + geom_point(alpha = 0.2)
+ggplot(hotels, aes(stars, rating)) + geom_boxplot()
+ggplot(hotels, aes(factor(stars), rating)) + geom_boxplot()
+
+install.packages("hexbin")
+library(hexbin)
+ggplot(hotels, aes(factor(stars), rating)) + geom_hex()
+
+
+p <- ggplot(hotels, aes(factor(stars), rating)) + geom_boxplot()
+p + facet_wrap(~ citytype)
+
+ggplot(hotels, aes(pricecat)) + geom_bar(fill = "orange")
+ggplot(hotels, aes(pricecat, fill = citytype)) + geom_bar()
+ggplot(hotels, aes(pricecat)) + geom_bar(fill = citytype)
+
+ggplot(hotels, aes(pricecat, fill = citytype)) + geom_bar(position = "dodge")
+
+ggplot(hotels, aes(price_EUR)) + geom_density()
+ggplot(hotels, aes(price_EUR, fill = pricecat)) + geom_density(alpha = 0.25)
+
+install.packages("ggthemes")
+library(ggthemes)
+
+p <- ggplot(hotels, aes(rating, price_EUR, color = citytype)) +
+  geom_point()
+p + theme_wsj() + scale_color_wsj()
+
+ggplot(hotels, aes(price_EUR)) + geom_histogram()
+z <- ggplot(hotels, aes(price_EUR)) + geom_histogram()
+z + facet_wrap(~ citytype)
+
+z <- ggplot(hotels, aes(price_EUR)) + geom_boxplot()
+z + facet_wrap(~ citytype)
+
+ggplot(hotels, aes(price_EUR, dist_center_km)) + geom_point() 
+str(hotels)
